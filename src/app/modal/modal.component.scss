@@ -54,10 +54,15 @@ input.ng-invalid.ng-touched {
     border:1px solid #EA1919 !important;
     background-color: rgba(250, 242, 243, 1) !important;
 }
-input.ng-valid{
-    border: 1px solid #14D81C !important;
-    background-color: rgba(248, 255, 248, 1)!important;
+.invalid-input{
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
 }
+:host ::ng-deep .invalid-input {
+    border: 1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+  }
+  
 small{
     span{
         color: #EA1919;

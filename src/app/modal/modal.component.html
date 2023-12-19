@@ -1,4 +1,9 @@
-<form class="modal fade position-relative" [formGroup]="myForm" id="myModal">
+<form
+  class="modal fade position-relative"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="myForm"
+  id="myModal"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <h4 class="modal-title text-center">შესვლა</h4>
@@ -29,13 +34,24 @@
 
       <div class="modal-body">
         <label for="mail">ელ-ფოსტა</label>
-        <input formControlName="email" type="email" id="email" />
+        <input
+          [ngClass]="{ 'invalid-input': !valid }"
+          formControlName="email"
+          type="email"
+          id="email"
+        />
         <small *ngIf="!myForm.get('email').valid && myForm.get('email').dirty">
           <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
           <span>მეილი უნდა მთავრდებოდეს @redbery.ge-ით</span>
         </small>
+        <small *ngIf="!valid">
+          <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
+          <span>ელ-ფოსტა არ მოიძებნა</span>
+        </small>
       </div>
-      <button type="submit" class="btn">შესვლა</button>
+      <button [disabled]="!myForm.get('email').valid" type="submit" class="btn">
+        შესვლა
+      </button>
     </div>
   </div>
 </form>
