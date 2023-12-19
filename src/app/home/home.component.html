@@ -1,14 +1,64 @@
-<nav class="navigation">
-  <ng-container>
-    <p
-      class="navigationP"
-      *ngFor="let item of categories"
-      [ngStyle]="{
-        'background-color': item.background_color + '14',
-        color: item.text_color,
-      }"
-    >
-      {{ item.title }}
-    </p>
-  </ng-container>
-</nav>
+<header>
+  <img src="/assets/logo.svg" alt="" />
+  <button class="btn" data-bs-toggle="modal" data-bs-target="#myModal">
+    შესვლა
+  </button>
+</header>
+<main class="wrapper">
+  <section>
+    <h2>ბლოგი</h2>
+    <img src="/assets/blog.png" alt="" />
+  </section>
+  <nav class="navigation">
+    <ng-container>
+      <p
+        class="navigationP"
+        *ngFor="let item of categories"
+        [ngStyle]="{
+          'background-color': item.background_color,
+          color: item.text_color,
+        }"
+      >
+        {{ item.title }}
+      </p>
+    </ng-container>
+  </nav>
+</main>
+
+<div class="modal fade position-relative" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <h4 class="modal-title text-center">შესვლა</h4>
+      <svg
+        style="cursor: pointer; position: absolute; top: 20px; right: 20px"
+        data-bs-dismiss="modal"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M7.75732 16.2426L16.2426 7.75736"
+          stroke="#1A1A1F"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M16.2426 16.2426L7.75732 7.75736"
+          stroke="#1A1A1F"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <div class="modal-body">
+        <label for="mail">ელ-ფოსტა</label>
+        <input type="email" id="email" />
+      </div>
+      <button class="btn">შესვლა</button>
+    </div>
+  </div>
+</div>
