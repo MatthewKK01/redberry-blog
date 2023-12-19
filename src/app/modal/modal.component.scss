@@ -1,0 +1,71 @@
+.modal{
+    button{
+    background-color: #5D37F3;
+    text-align: center;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #FFF;
+    font-family: FiraGO;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    }
+    
+}
+.modal-content{
+    padding: 40px 24px;
+border-radius: 12px !important;
+    h1{
+    color: #1A1A1F;
+    text-align: center;
+    font-family: FiraGO;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px; /* 133.333% */
+    }
+}
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 !important;
+    margin-block:24px !important;
+    input{
+        border-radius: 12px;
+        border: 1.5px solid #5D37F3;
+        background: #F7F7FF;
+        height: 44px;
+        outline: none;
+    }
+}
+
+.modal {
+    top: -200px; 
+  }
+
+input.ng-invalid.ng-dirty {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+input.ng-invalid.ng-touched {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+input.ng-valid{
+    border: 1px solid #14D81C !important;
+    background-color: rgba(248, 255, 248, 1)!important;
+}
+small{
+    span{
+        color: #EA1919;
+font-family: FiraGO;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 166.667% */
+    }
+}
+  

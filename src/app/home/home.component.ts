@@ -14,9 +14,11 @@ export class HomeComponent implements OnInit {
 
 
   constructor(public categoriesService: CategoryService, public blogService: BlogService) { }
-  modal: boolean = false;
+
   public categories: any[] = [];
+
   private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
+
   public posts: any[] | undefined
 
   ngOnInit(): void {
