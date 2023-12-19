@@ -1,0 +1,14 @@
+<nav class="navigation">
+  <ng-container>
+    <p
+      class="navigationP"
+      *ngFor="let item of categories"
+      [ngStyle]="{
+        'background-color': item.background_color + '14',
+        color: item.text_color,
+      }"
+    >
+      {{ item.title }}
+    </p>
+  </ng-container>
+</nav>
