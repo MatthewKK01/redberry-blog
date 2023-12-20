@@ -1,7 +1,15 @@
 <header>
   <img src="/assets/logo.svg" alt="" />
-  <button class="btn" data-bs-toggle="modal" data-bs-target="#myModal">
+  <button
+    class="btn"
+    *ngIf="!isLoggedIn"
+    data-bs-toggle="modal"
+    data-bs-target="#myModal"
+  >
     შესვლა
+  </button>
+  <button class="btn" *ngIf="isLoggedIn" (click)="navigate()">
+    ბლოგის დამატება
   </button>
 </header>
 <main class="wrapper">

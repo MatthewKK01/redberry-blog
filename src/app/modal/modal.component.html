@@ -1,12 +1,6 @@
-<form
-  class="modal fade position-relative"
-  (ngSubmit)="onSubmit()"
-  [formGroup]="myForm"
-  id="myModal"
->
+<div class="modal fade position-relative" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <h4 class="modal-title text-center">შესვლა</h4>
       <svg
         style="cursor: pointer; position: absolute; top: 20px; right: 20px"
         data-bs-dismiss="modal"
@@ -32,26 +26,64 @@
         />
       </svg>
 
-      <div class="modal-body">
-        <label for="mail">ელ-ფოსტა</label>
-        <input
-          [ngClass]="{ 'invalid-input': !valid }"
-          formControlName="email"
-          type="email"
-          id="email"
-        />
-        <small *ngIf="!myForm.get('email').valid && myForm.get('email').dirty">
-          <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
-          <span>მეილი უნდა მთავრდებოდეს @redbery.ge-ით</span>
-        </small>
-        <small *ngIf="!valid">
-          <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
-          <span>ელ-ფოსტა არ მოიძებნა</span>
-        </small>
-      </div>
-      <button [disabled]="!myForm.get('email').valid" type="submit" class="btn">
-        შესვლა
+      <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+        <div *ngIf="!showSuccesMessage" class="modal-body">
+          <h4 class="modal-title text-center">შესვლა</h4>
+
+          <label for="mail">ელ-ფოსტა</label>
+          <input
+            [ngClass]="{ 'invalid-input': !valid }"
+            formControlName="email"
+            type="email"
+            id="email"
+          />
+          <small
+            *ngIf="!myForm.get('email').valid && myForm.get('email').dirty"
+          >
+            <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
+            <span>მეილი უნდა მთავრდებოდეს @redbery.ge-ით</span>
+          </small>
+          <small *ngIf="!valid">
+            <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
+            <span>ელ-ფოსტა არ მოიძებნა</span>
+          </small>
+        </div>
+
+        <div *ngIf="showSuccesMessage" class="modal-body">
+          <svg
+            style="margin: 0 auto"
+            xmlns="http://www.w3.org/2000/svg"
+            width="64"
+            height="64"
+            viewBox="0 0 64 64"
+            fill="none"
+          >
+            <path
+              d="M32.0002 58.6667C46.6668 58.6667 58.6668 46.6667 58.6668 32C58.6668 17.3333 46.6668 5.33334 32.0002 5.33334C17.3335 5.33334 5.3335 17.3333 5.3335 32C5.3335 46.6667 17.3335 58.6667 32.0002 58.6667Z"
+              fill="#14D81C"
+            />
+            <path
+              d="M20.6665 32L28.2132 39.5467L43.3332 24.4533"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <h3>წარმატებული ავტორიზაცია</h3>
+        </div>
+        <button
+          *ngIf="!showSuccesMessage"
+          [disabled]="!myForm.get('email').valid"
+          type="submit"
+          class="btn"
+        >
+          შესვლა
+        </button>
+      </form>
+      <button *ngIf="showSuccesMessage" data-bs-dismiss="modal" class="btn">
+        კარგი
       </button>
     </div>
   </div>
-</form>
+</div>

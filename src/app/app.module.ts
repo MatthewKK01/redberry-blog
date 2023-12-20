@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ModalComponent } from './modal/modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewBlogComponent } from './new-blog/new-blog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ModalComponent
+    ModalComponent,
+    NewBlogComponent
   ],
   imports: [
     BrowserModule,
