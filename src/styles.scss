@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "FiraGO", sans-serif !important;
 }
+$font-family-base:"FiraGO", sans-serif !important;
 body{
 background-color: #F3F2FA;
 }
@@ -10,6 +12,13 @@ background-color: #F3F2FA;
 .wrapper{
     max-width: 1440px;
     margin: 0 auto;
+}
+input,select{
+    border-radius: 12px;
+height: 44px;
+outline: none;
+padding-left: 16px;
+
 }
 
 .navigation{

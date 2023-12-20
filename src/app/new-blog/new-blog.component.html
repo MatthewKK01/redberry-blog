@@ -1,1 +1,68 @@
-<p>new-blog works!</p>
+<header>
+  <img src="/assets/logo.svg" alt="" />
+</header>
+<main class="wrapper">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="44"
+    height="44"
+    viewBox="0 0 44 44"
+    fill="none"
+  >
+    <rect width="44" height="44" rx="22" fill="#E4E3EB" />
+    <path
+      d="M18 23C18.5523 23 19 22.5523 19 22C19 21.4477 18.5523 21 18 21L18 23ZM17.1929 21.2929C16.8024 21.6834 16.8024 22.3166 17.1929 22.7071L23.5569 29.0711C23.9474 29.4616 24.5805 29.4616 24.9711 29.0711C25.3616 28.6805 25.3616 28.0474 24.9711 27.6569L19.3142 22L24.9711 16.3431C25.3616 15.9526 25.3616 15.3195 24.9711 14.9289C24.5805 14.5384 23.9474 14.5384 23.5569 14.9289L17.1929 21.2929ZM18 21L17.9 21L17.9 23L18 23L18 21Z"
+      fill="#1A1A1F"
+    />
+  </svg>
+  <div>
+    <h1>ბლოგის დამატება</h1>
+    <form action="">
+      <div class="div1">
+        <p for="file">ატვირთეთ ფოტო</p>
+        <div class="dropzone file-upload-wrapper">
+          <img src="assets/vuesax/bulk/vuesax/bulk/folder-add.svg" alt="" />
+          <p>ჩააგდეთ ფაილი აქ ან <label for="file">აირჩიეთ ფაილი</label></p>
+        </div>
+        <input id="file" type="file" />
+      </div>
+      <div class="div2">
+        <label for="">ავტორი*</label>
+        <input type="text" placeholder="შეიყვანეთ ავტორი" />
+        <ul>
+          <li>მინიმუმ 4 სიმბოლო</li>
+          <li>მინიმუმ ორი სიტყვა</li>
+          <li>მხოლოდ ქართული სიმბოლოები</li>
+        </ul>
+      </div>
+      <div class="div3">
+        <label for="">სათაური*</label>
+        <input type="text" placeholder="შეიყვანეთ სათაური" />
+        <small>მინიმუმ 2 სიმბოლო</small>
+      </div>
+      <div class="div4">
+        <label for="">აღწერა*</label>
+        <textarea name="" id=""></textarea>
+        <small>მინიმუმ 2 სიმბოლო</small>
+      </div>
+      <div class="div5">
+        <label>გამოქვეყნების თარიღი*</label>
+        <input type="date" name="" id="" />
+      </div>
+      <div class="div6">
+        <label for="categories">კატეგორია*</label>
+        <select name="categories" id="categories">
+          <option value="">აირჩიეთ კატეგორია</option>
+          <option *ngFor="let item of categories" [value]="item.id">
+            {{ item.title }}
+          </option>
+        </select>
+      </div>
+      <div class="div7">
+        <label for="email">ემაილი</label>
+        <input type="email" name="email" id="email" />
+      </div>
+    </form>
+    <button class="btn">გამოქვეყნება</button>
+  </div>
+</main>

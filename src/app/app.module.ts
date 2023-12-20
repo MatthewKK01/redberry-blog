@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ModalComponent } from './modal/modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewBlogComponent } from './new-blog/new-blog.component';
+import { DragDirective } from './drag.directive';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NewBlogComponent } from './new-blog/new-blog.component';
     AppComponent,
     HomeComponent,
     ModalComponent,
-    NewBlogComponent
+    NewBlogComponent,
+    DragDirective
   ],
   imports: [
     BrowserModule,
