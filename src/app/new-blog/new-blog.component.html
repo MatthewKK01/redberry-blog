@@ -20,7 +20,7 @@
     <form action="">
       <div class="div1">
         <p for="file">ატვირთეთ ფოტო</p>
-        <div class="dropzone file-upload-wrapper">
+        <div class="dropzone" appDrag (files)="fileDropped($event)">
           <img src="assets/vuesax/bulk/vuesax/bulk/folder-add.svg" alt="" />
           <p>ჩააგდეთ ფაილი აქ ან <label for="file">აირჩიეთ ფაილი</label></p>
         </div>

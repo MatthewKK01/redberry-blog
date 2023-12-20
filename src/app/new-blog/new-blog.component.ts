@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
+import { SafeUrl } from '@angular/platform-browser';
+
+
+interface FileHandle {
+  file: File;
+  url: SafeUrl;
+}
 
 @Component({
   selector: 'app-new-blog',
@@ -10,6 +17,7 @@ export class NewBlogComponent implements OnInit {
   constructor(private categoryService: CategoryService) { }
 
   public categories: any[] = [];
+  public Photo: FileHandle;
 
   private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
 
@@ -20,5 +28,9 @@ export class NewBlogComponent implements OnInit {
         error: err => console.log(err)
       }
     )
+  }
+  fileDropped(fileHandle: FileHandle) {
+    this.Photo = fileHandle;
+    console.log(this.Photo);
   }
 }
