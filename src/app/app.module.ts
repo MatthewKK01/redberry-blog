@@ -11,6 +11,7 @@ import { NewBlogComponent } from './new-blog/new-blog.component';
 import { DragDirective } from './drag.directive';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     ModalComponent,
     NewBlogComponent,
     DragDirective,
+    PostDetailsComponent,
 
   ],
   imports: [

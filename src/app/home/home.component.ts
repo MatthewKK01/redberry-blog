@@ -5,6 +5,24 @@ import { BlogService } from '../services/blog.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
+interface BlogPost {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  publish_date: string;
+  author: string;
+  categories: Category[];
+}
+
+interface Category {
+  id: number;
+  title: string;
+  text_color: string;
+  background_color: string;
+}
+
+
 
 @Component({
   selector: 'app-home',
@@ -17,13 +35,13 @@ export class HomeComponent implements OnInit {
 
   constructor(public categoriesService: CategoryService, public blogService: BlogService, public auth: AuthService, public router: Router) { }
 
-  public categories: any[] = [];
+  public categories: Category[] = [];
   public isLoggedIn: boolean = false
 
 
   private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
 
-  public posts: any[];
+  public posts: BlogPost[];
 
   ngOnInit(): void {
     this.categoriesService.getCategories(this.token).subscribe(

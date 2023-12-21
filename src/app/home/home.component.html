@@ -20,7 +20,7 @@
   <nav class="navigation">
     <ng-container>
       <p
-        class="navigationP"
+        class="categoryTitle"
         *ngFor="let item of categories"
         [ngStyle]="{
           'background-color': item.background_color,
@@ -32,8 +32,27 @@
     </ng-container>
   </nav>
   <article>
-    <div *ngFor="let post of posts">
-      <h1>{{ post.author }}</h1>
+    <div class="blogWrapper" *ngFor="let item of posts">
+      <img [src]="item.image" alt="" />
+      <h1>{{ item.author }}</h1>
+      <small>{{ item.publish_date }}</small>
+      <h1>{{ item.title }}</h1>
+      <div
+        style="display: flex; gap: 16px"
+        *ngFor="let category of item.categories"
+      >
+        <p
+          class="categoryTitle"
+          [ngStyle]="{
+          'background-color': category.background_color,
+          color: category.text_color,
+        }"
+        >
+          {{ category.title }}
+        </p>
+      </div>
+      <p>{{ item.description }}</p>
+      <a [routerLink]="['/posts', item.id]">სრულად ნახვა</a>
     </div>
   </article>
 </main>
