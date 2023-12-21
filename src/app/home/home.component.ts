@@ -20,9 +20,10 @@ export class HomeComponent implements OnInit {
   public categories: any[] = [];
   public isLoggedIn: boolean = false
 
+
   private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
 
-  public posts: any[] | undefined
+  public posts: any[];
 
   ngOnInit(): void {
     this.categoriesService.getCategories(this.token).subscribe(
@@ -41,6 +42,12 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+    this.blogService.getBlogs(this.token).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.posts = res.data
+      }
+    })
 
   }
 

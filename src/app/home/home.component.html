@@ -31,6 +31,11 @@
       </p>
     </ng-container>
   </nav>
+  <article>
+    <div *ngFor="let post of posts">
+      <h1>{{ post.author }}</h1>
+    </div>
+  </article>
 </main>
 
 <app-modal></app-modal>

@@ -105,9 +105,16 @@
       </div>
       <div class="div6">
         <label for="categories">კატეგორია*</label>
-        <select name="categories" id="categories">
+        <select name="categories" multiple id="categories">
           <option value="">აირჩიეთ კატეგორია</option>
-          <option *ngFor="let item of categories" [value]="item.id">
+          <option
+            [ngStyle]="{
+              color: item.text_color,
+              'background-color': item.background_color
+            }"
+            *ngFor="let item of categories"
+            [value]="item.id"
+          >
             {{ item.title }}
           </option>
         </select>
