@@ -9,7 +9,7 @@ import { ModalComponent } from './modal/modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewBlogComponent } from './new-blog/new-blog.component';
 import { DragDirective } from './drag.directive';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { FormsModule } from '@angular/forms';
 import { PostDetailsComponent } from './post-details/post-details.component';
 
@@ -29,8 +29,8 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgSelectModule,
-    FormsModule
+    FormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

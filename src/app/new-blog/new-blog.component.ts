@@ -3,9 +3,10 @@ import { CategoryService } from '../services/category.service';
 import { SafeUrl } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { BlogService } from '../services/blog.service';
 import { Router } from '@angular/router';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 
 
@@ -38,6 +39,9 @@ export class NewBlogComponent implements OnInit {
   emailRegex = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
 
 
+  selectedItems = [];
+  dropdownSettings = {};
+
 
 
   private atLeastTwoWordsValidator() {
@@ -50,20 +54,21 @@ export class NewBlogComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.myForm.get('title').hasError('minLength'));
+    const selectedIds = this.myForm.get('selectedItems').value.map(item => item.id);
+
     const formData = this.myForm.value;
     const blogData = {
 
       title: formData.title,
       description: formData.description,
-      image: this.myImage, // Assuming 'image' is a FileHandle with a 'url' property
+      image: this.myImage, 
       publish_date: formData.publish_date,
-      categories: [1, 3],
+      categories: selectedIds,
       author: formData.author,
       email: formData.email,
 
     };
-    console.log(`full data: ${blogData}`);
+
     this.blogservice.sendPost(blogData).subscribe(
       {
         next: (res) => console.log(res),
@@ -82,23 +87,36 @@ export class NewBlogComponent implements OnInit {
       title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       description: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       image: new FormControl(null, [Validators.required]),
-
+      selectedItems: new FormControl([]),
       publish_date: new FormControl(null, [Validators.required]),
 
       author: new FormControl(null, [Validators.required, Validators.pattern(/^[\u10A0-\u10FF\s\r\n]*$/), // Only Georgian symbols
       this.atLeastTwoWordsValidator(), // At least 4 words
       Validators.minLength(4), // At least 2 digits
       ]),
-      email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(this.emailRegex)])
+      email: new FormControl(null, [Validators.email, Validators.pattern(this.emailRegex)])
     })
-
 
     this.categoryService.getCategories().subscribe(
       {
-        next: (res) => this.categories = res.data
+        next: (res) => { this.categories = res.data, console.log(this.categories) }
       }
     )
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'title',
+      enableCheckAll: false,
+      itemsShowLimit: 3,
+      allowSearchFilter: false
+    };
   }
+
+
+
+
+
   fileDropped(fileHandle: FileHandle) {
     this.Photo = fileHandle;
     console.log(this.Photo);
@@ -120,6 +138,7 @@ export class NewBlogComponent implements OnInit {
 
     }
   }
+
 
 
 

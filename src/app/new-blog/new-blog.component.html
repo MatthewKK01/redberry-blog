@@ -163,6 +163,13 @@
         </div>
         <div class="div6">
           <label for="categories">კატეგორია*</label>
+          <ng-multiselect-dropdown
+            [placeholder]="'აირჩიეთ კატეგორია'"
+            [settings]="dropdownSettings"
+            [data]="categories"
+            formControlName="selectedItems"
+          >
+          </ng-multiselect-dropdown>
         </div>
         <div class="div7">
           <label for="email">ემაილი</label>
