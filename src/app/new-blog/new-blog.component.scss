@@ -4,7 +4,6 @@ header{
     padding-block: 28px;
     text-align: center;
     margin-bottom: 40px;
-
 }
 .result{
     svg{
@@ -34,7 +33,7 @@ font-family: FiraGO;
 font-size: 12px;
 font-style: normal;
 font-weight: 500;
-line-height: 16px; /* 133.333% */
+line-height: 16px; 
 }
 .photoName{
     color: #1A1A1F;
@@ -42,7 +41,7 @@ font-family: FiraGO;
 
 font-style: normal;
 font-weight: 400;
-line-height: 20px; /* 142.857% */
+line-height: 20px; 
 margin: 0;
 }
 input,select{
@@ -57,7 +56,7 @@ font-family: FiraGO;
 font-size: 12px;
 font-style: normal;
 font-weight: 400;
-line-height: 20px; /* 166.667% */
+line-height: 20px; 
 }
 svg{
     position: absolute;
@@ -78,7 +77,7 @@ font-family: FiraGO;
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
-line-height: 20px; /* 142.857% */
+line-height: 20px; 
 }
 textarea{
     resize: none;
@@ -109,7 +108,7 @@ height: 40px;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
-        line-height: 20px; /* 142.857% */ 
+        line-height: 20px;  
     label{
         cursor: pointer;
         color: #1A1A1F;
@@ -136,12 +135,17 @@ button{
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px; /* 142.857% */
+    line-height: 20px; 
 }
-
+h1{
+    margin-left: 240px;
+}
 form{
     margin-block:40px;
     width: 600px;
+    margin-left: 240px;
+}
+.wrapper{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, auto);
@@ -163,4 +167,53 @@ label{
 textarea{
     width: 600px;
     height: 124px;
+    margin-bottom: 8px;
 }
+ul{
+    margin-top: 8px;
+}
+
+input.ng-invalid.ng-dirty {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+input.ng-invalid.ng-touched {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+input.ng-valid.ng-untouched{
+   border: 1px solid rgba(20, 216, 28, 1) !important;
+   background-color: #F8FFF8;
+}
+input.ng-valid.ng-touched{
+   border: 1px solid rgba(20, 216, 28, 1) !important;
+   background-color: #F8FFF8;
+}
+:host ::ng-deep .invalid-input {
+    border: 1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+  }
+  
+small{
+    span{
+        color: #EA1919;
+font-family: FiraGO;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; 
+    }
+}
+
+
+.error-list {
+    color: #EA1919;
+    padding-left: 0;
+  }
+  
+.div3{
+   small{
+    margin-top:8px;
+   }
+}
+  

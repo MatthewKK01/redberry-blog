@@ -39,12 +39,12 @@ export class HomeComponent implements OnInit {
   public isLoggedIn: boolean = false
 
 
-  private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
+
 
   public posts: BlogPost[];
 
   ngOnInit(): void {
-    this.categoriesService.getCategories(this.token).subscribe(
+    this.categoriesService.getCategories().subscribe(
       data => console.log('Success!', this.categories = data.data),
       error => console.error('Error:', error),
     )
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
         }
       }
     )
-    this.blogService.getBlogs(this.token).subscribe({
+    this.blogService.getBlogs().subscribe({
       next: (res) => {
         console.log(res);
         this.posts = res.data

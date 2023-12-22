@@ -3,6 +3,8 @@ import { CategoryService } from '../services/category.service';
 import { SafeUrl } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { BlogService } from '../services/blog.service';
 
 
 
@@ -22,17 +24,69 @@ interface Categories {
   styleUrls: ['./new-blog.component.scss']
 })
 export class NewBlogComponent implements OnInit {
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private blogservice: BlogService) {
+
+  }
 
   categories: Categories[] = [];
+  myForm: FormGroup;
+
   public Photo: FileHandle = null;
-  selectedCategories: any[] = [];
+  selectedCategories: any[] = [1, 2];
 
 
-  private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
+
+
+  private atLeastTwoWordsValidator() {
+    return (control) => {
+      const value = control.value || '';
+      const words = value.trim().split(/\s+/);
+      return words.length >= 2 ? null : { atLeastTwoWords: true };
+    };
+  }
+
+
+  onSubmit() {
+    console.log(this.myForm.value);
+    const formData = this.myForm.value;
+    const blogData = {
+
+      title: formData.title,
+      description: formData.description,
+      image: this.Photo.url, // Assuming 'image' is a FileHandle with a 'url' property
+      publish_date: formData.publish_date,
+      categories: [1, 3],
+      author: formData.author,
+      email: formData.email,
+
+    };
+    console.log(`full data: ${blogData}`);
+    this.blogservice.sendPost(blogData).subscribe(
+      {
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      }
+    )
+  }
 
   ngOnInit() {
-    this.categoryService.getCategories(this.token).subscribe(
+
+    this.myForm = new FormGroup({
+      title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      description: new FormControl(null, [Validators.required]),
+      image: new FormControl(null, [Validators.required]),
+
+      publish_date: new FormControl(null, [Validators.required]),
+
+      author: new FormControl(null, [Validators.required, Validators.pattern(/^[\u10A0-\u10FF\s\r\n]*$/), // Only Georgian symbols
+      this.atLeastTwoWordsValidator(), // At least 4 words
+      Validators.minLength(4), // At least 2 digits
+      ]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+    })
+
+
+    this.categoryService.getCategories().subscribe(
       {
         next: (res) => this.categories = res.data
       }
@@ -56,5 +110,8 @@ export class NewBlogComponent implements OnInit {
       console.log(this.Photo);
     }
   }
+
+
+
 
 }

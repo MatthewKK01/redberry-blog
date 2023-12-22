@@ -28,7 +28,7 @@ export class ModalComponent implements OnInit {
 
   onSubmit() {
     const email: string = this.myForm.get('email').value;
-    this.auth.postUser(email, this.token).subscribe(
+    this.auth.postUser(email).subscribe(
       {
         next: response => {
           console.log('Email sent successfully', response);
