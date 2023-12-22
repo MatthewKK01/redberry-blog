@@ -1,8 +1,10 @@
 <header>
   <img src="/assets/logo.svg" alt="" />
 </header>
-<main class="wrapper">
+<main>
   <svg
+    (click)="goBack()"
+    style="cursor: pointer"
     xmlns="http://www.w3.org/2000/svg"
     width="44"
     height="44"
@@ -134,12 +136,26 @@
             formControlName="title"
             placeholder="შეიყვანეთ სათაური"
           />
-          <small>მინიმუმ 2 სიმბოლო</small>
+          <small
+            [ngClass]="{
+              'error-list':
+                myForm.get('title').hasError('minlength') &&
+                myForm.get('title').touched
+            }"
+            >მინიმუმ 2 სიმბოლო</small
+          >
         </div>
         <div class="div4">
-          <label for="description">აღწერა*</label>
+          <label for="description">აღწერა *</label>
           <textarea formControlName="description" id="description"></textarea>
-          <small>მინიმუმ 2 სიმბოლო</small>
+          <small
+            [ngClass]="{
+              'error-list':
+                myForm.get('description').hasError('minlength') &&
+                myForm.get('description').touched
+            }"
+            >მინიმუმ 2 სიმბოლო</small
+          >
         </div>
         <div class="div5">
           <label>გამოქვეყნების თარიღი*</label>
@@ -151,6 +167,12 @@
         <div class="div7">
           <label for="email">ემაილი</label>
           <input type="email" formControlName="email" id="email" />
+          <small
+            *ngIf="!myForm.get('email').valid && myForm.get('email').dirty"
+          >
+            <img src="/assets/vuesax/linear/info-circle.svg" alt="" />
+            <span>მეილი უნდა მთავრდებოდეს @redbery.ge-ით</span>
+          </small>
         </div>
       </div>
       <button class="btn">გამოქვეყნება</button>

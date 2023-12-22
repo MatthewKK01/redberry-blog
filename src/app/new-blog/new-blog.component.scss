@@ -59,17 +59,18 @@ font-weight: 400;
 line-height: 20px; 
 }
 svg{
-    position: absolute;
-  left: 76px;
+
+  margin-left: 76px;
 }
 
 input[type="file"] {
     display: none;
 }
 main{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 110px;
+
+display: flex;
+gap: 240px;
+margin-bottom: 110px;
 }
 input::placeholder{
     color: #85858D;
@@ -137,13 +138,11 @@ button{
     font-weight: 500;
     line-height: 20px; 
 }
-h1{
-    margin-left: 240px;
-}
+
 form{
     margin-block:40px;
     width: 600px;
-    margin-left: 240px;
+
 }
 .wrapper{
     display: grid;
@@ -193,6 +192,31 @@ input.ng-valid.ng-touched{
     border: 1px solid #EA1919 !important;
     background-color: rgba(250, 242, 243, 1) !important;
   }
+
+  textarea.ng-invalid.ng-dirty {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+textarea.ng-invalid.ng-touched {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+textarea.ng-valid.ng-untouched{
+   border: 1px solid rgba(20, 216, 28, 1) !important;
+   background-color: #F8FFF8;
+}
+textarea.ng-valid.ng-touched{
+   border: 1px solid rgba(20, 216, 28, 1) !important;
+   background-color: #F8FFF8;
+}
+:host ::ng-deep .invalid-input {
+    border: 1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+  }
+  textarea{
+    outline: none;
+    padding: 16px;
+  }
   
 small{
     span{
@@ -210,6 +234,7 @@ line-height: 20px;
     color: #EA1919;
     padding-left: 0;
   }
+ 
   
 .div3{
    small{

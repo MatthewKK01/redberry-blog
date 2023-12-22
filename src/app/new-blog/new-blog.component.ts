@@ -5,6 +5,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { BlogService } from '../services/blog.service';
+import { Router } from '@angular/router';
 
 
 
@@ -24,7 +25,7 @@ interface Categories {
   styleUrls: ['./new-blog.component.scss']
 })
 export class NewBlogComponent implements OnInit {
-  constructor(private categoryService: CategoryService, private blogservice: BlogService) {
+  constructor(private categoryService: CategoryService, private blogservice: BlogService, private router: Router) {
 
   }
 
@@ -33,6 +34,8 @@ export class NewBlogComponent implements OnInit {
 
   public Photo: FileHandle = null;
   selectedCategories: any[] = [1, 2];
+  myImage = new FormData()
+  emailRegex = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
 
 
 
@@ -47,13 +50,13 @@ export class NewBlogComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.myForm.value);
+    console.log(this.myForm.get('title').hasError('minLength'));
     const formData = this.myForm.value;
     const blogData = {
 
       title: formData.title,
       description: formData.description,
-      image: this.Photo.url, // Assuming 'image' is a FileHandle with a 'url' property
+      image: this.myImage, // Assuming 'image' is a FileHandle with a 'url' property
       publish_date: formData.publish_date,
       categories: [1, 3],
       author: formData.author,
@@ -69,11 +72,15 @@ export class NewBlogComponent implements OnInit {
     )
   }
 
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
   ngOnInit() {
 
     this.myForm = new FormGroup({
       title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-      description: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       image: new FormControl(null, [Validators.required]),
 
       publish_date: new FormControl(null, [Validators.required]),
@@ -82,7 +89,7 @@ export class NewBlogComponent implements OnInit {
       this.atLeastTwoWordsValidator(), // At least 4 words
       Validators.minLength(4), // At least 2 digits
       ]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(this.emailRegex)])
     })
 
 
@@ -108,6 +115,9 @@ export class NewBlogComponent implements OnInit {
       const url = URL.createObjectURL(file);
       this.Photo = { file, url };
       console.log(this.Photo);
+
+      this.myImage.append('image', this.Photo.file);
+
     }
   }
 
