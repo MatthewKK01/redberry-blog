@@ -39,9 +39,27 @@ export class NewBlogComponent implements OnInit {
   emailRegex = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
 
 
-  selectedItems = [];
-  dropdownSettings = {};
+  selectedItems: Categories[] = [
+  ];
 
+  listVisible = false;
+
+
+  onItemClick(item: any) {
+    // Check if the item is already selected
+    const index = this.selectedItems.findIndex(selectedItem => selectedItem.id === item.id);
+
+    if (index === -1) {
+      // If not selected, add it to the selectedItems array
+      this.selectedItems.push(item);
+    }
+  }
+  removeItem(item: any) {
+    const index = this.selectedItems.findIndex(selectedItem => selectedItem.id === item.id);
+    if (index !== -1) {
+      this.selectedItems.splice(index, 1);
+    }
+  }
 
 
   private atLeastTwoWordsValidator() {
@@ -51,23 +69,38 @@ export class NewBlogComponent implements OnInit {
       return words.length >= 2 ? null : { atLeastTwoWords: true };
     };
   }
+  private selectedItemsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const selectedItems = control.value;
 
+      // Check if the selectedItems array is empty
+      if (!selectedItems || selectedItems.length === 0) {
+        return { 'selectedItemsRequired': true };
+      }
+
+      return null;
+    };
+  }
+
+  changeVisibility() {
+    this.listVisible = !this.listVisible
+  }
 
   onSubmit() {
-    const selectedIds = this.myForm.get('selectedItems').value.map(item => item.id);
+    const selectedIds = this.selectedItems.map(item => item.id);
 
     const formData = this.myForm.value;
     const blogData = {
-
       title: formData.title,
       description: formData.description,
-      image: this.myImage, 
+      image: this.myImage,
       publish_date: formData.publish_date,
       categories: selectedIds,
       author: formData.author,
       email: formData.email,
 
     };
+    console.log(blogData);
 
     this.blogservice.sendPost(blogData).subscribe(
       {
@@ -87,7 +120,7 @@ export class NewBlogComponent implements OnInit {
       title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       description: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       image: new FormControl(null, [Validators.required]),
-      selectedItems: new FormControl([]),
+      categories: new FormControl([], Validators.required),
       publish_date: new FormControl(null, [Validators.required]),
 
       author: new FormControl(null, [Validators.required, Validators.pattern(/^[\u10A0-\u10FF\s\r\n]*$/), // Only Georgian symbols
@@ -103,14 +136,7 @@ export class NewBlogComponent implements OnInit {
       }
     )
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'title',
-      enableCheckAll: false,
-      itemsShowLimit: 3,
-      allowSearchFilter: false
-    };
+
   }
 
 

@@ -147,7 +147,11 @@
         </div>
         <div class="div4">
           <label for="description">აღწერა *</label>
-          <textarea formControlName="description" id="description"></textarea>
+          <textarea
+            placeholder="შეიყვანეთ აღწერა"
+            formControlName="description"
+            id="description"
+          ></textarea>
           <small
             [ngClass]="{
               'error-list':
@@ -163,17 +167,96 @@
         </div>
         <div class="div6">
           <label for="categories">კატეგორია*</label>
-          <ng-multiselect-dropdown
-            [placeholder]="'აირჩიეთ კატეგორია'"
-            [settings]="dropdownSettings"
-            [data]="categories"
-            formControlName="selectedItems"
+          <div
+            [class.invalid-input]="
+              myForm.get('categories')?.invalid &&
+              myForm.get('categories')?.dirty
+            "
+            class="selection"
           >
-          </ng-multiselect-dropdown>
+            <p *ngIf="selectedItems.length === 0">აირჩიეთ კატეგორია</p>
+            <div style="padding-left: 6px" *ngIf="selectedItems">
+              <ul
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 8px;
+                "
+              >
+                <li
+                  style="
+                    display: inline;
+                    border-radius: 30px;
+                    padding-inline: 12px;
+                    padding-block: 8px;
+                    white-space: nowrap;
+                  "
+                  [ngStyle]="{
+                  
+                  'background-color': item.background_color,
+                  color: item.text_color,
+                }"
+                  [value]="item.id"
+                  *ngFor="let item of selectedItems"
+                >
+                  {{ item.title }}
+                  <svg
+                    (click)="removeItem(item)"
+                    style="margin: 0; cursor: pointer"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M5.17188 10.8285L10.8287 5.17161"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.8287 10.8284L5.17188 5.17154"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </li>
+              </ul>
+            </div>
+            <div class="visibility">
+              <img
+                (click)="changeVisibility()"
+                style="cursor: pointer"
+                src="assets/vuesax/linear/vuesax/linear/arrow-down.svg"
+              />
+            </div>
+          </div>
+          <ul class="categoryList" *ngIf="listVisible">
+            <li
+              (click)="onItemClick(categoryItem)"
+              *ngFor="let categoryItem of categories"
+              [ngStyle]="{
+              'background-color': categoryItem.background_color,
+              color: categoryItem.text_color,
+            }"
+            >
+              {{ categoryItem.title }}
+            </li>
+          </ul>
         </div>
         <div class="div7">
           <label for="email">ემაილი</label>
-          <input type="email" formControlName="email" id="email" />
+          <input
+            placeholder="Example@redberry.ge"
+            type="email"
+            formControlName="email"
+            id="email"
+          />
           <small
             *ngIf="!myForm.get('email').valid && myForm.get('email').dirty"
           >
@@ -182,7 +265,9 @@
           </small>
         </div>
       </div>
-      <button class="btn">გამოქვეყნება</button>
+      <button type="submit" [disabled]="!myForm.valid" class="submit-btn">
+        გამოქვეყნება
+      </button>
     </form>
   </div>
 </main>
