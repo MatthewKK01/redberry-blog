@@ -52,12 +52,15 @@ export class NewBlogComponent implements OnInit {
     if (index === -1) {
       // If not selected, add it to the selectedItems array
       this.selectedItems.push(item);
+      this.myForm.get('categories').setValue([...this.myForm.get('categories').value, item])
     }
+
   }
   removeItem(item: any) {
     const index = this.selectedItems.findIndex(selectedItem => selectedItem.id === item.id);
     if (index !== -1) {
       this.selectedItems.splice(index, 1);
+      this.myForm.get('categories').setValue(this.selectedItems.slice());
     }
   }
 
@@ -69,18 +72,7 @@ export class NewBlogComponent implements OnInit {
       return words.length >= 2 ? null : { atLeastTwoWords: true };
     };
   }
-  private selectedItemsValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const selectedItems = control.value;
 
-      // Check if the selectedItems array is empty
-      if (!selectedItems || selectedItems.length === 0) {
-        return { 'selectedItemsRequired': true };
-      }
-
-      return null;
-    };
-  }
 
   changeVisibility() {
     this.listVisible = !this.listVisible

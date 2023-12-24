@@ -168,10 +168,8 @@
         <div class="div6">
           <label for="categories">კატეგორია*</label>
           <div
-            [class.invalid-input]="
-              myForm.get('categories')?.invalid &&
-              myForm.get('categories')?.dirty
-            "
+            [class.ng-invalid]="!myForm.get('categories')?.valid"
+            [class.ng-valid]="myForm.get('categories')?.valid"
             class="selection"
           >
             <p *ngIf="selectedItems.length === 0">აირჩიეთ კატეგორია</p>
@@ -228,7 +226,12 @@
                 </li>
               </ul>
             </div>
-            <div class="visibility">
+            <div
+              class="visibility"
+              [class.ng-invalid]="!myForm.get('categories')?.valid"
+              [class.ng-touched]="myForm.get('categories')?.touched"
+              [class.ng-valid]="myForm.get('categories')?.valid"
+            >
               <img
                 (click)="changeVisibility()"
                 style="cursor: pointer"

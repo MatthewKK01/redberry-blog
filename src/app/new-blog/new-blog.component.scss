@@ -202,7 +202,18 @@ input.ng-valid.ng-touched{
     border: 1px solid #EA1919 !important;
     background-color: rgba(250, 242, 243, 1) !important;
   }
-
+.selection.ng-valid{
+    border: 1px solid #14D81C;
+background: #F8FFF8;
+}
+.selection.ng-invalid {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
+input.ng-invalid.ng-touched {
+    border:1px solid #EA1919 !important;
+    background-color: rgba(250, 242, 243, 1) !important;
+}
   textarea.ng-invalid.ng-dirty {
     border:1px solid #EA1919 !important;
     background-color: rgba(250, 242, 243, 1) !important;
@@ -316,4 +327,10 @@ display: inline;
     z-index: 99999;
     position: sticky;
     right: 0;
+}
+.visibility.ng-valid{
+background: #F8FFF8;
+}
+.visibility.ng-invalid{
+background: #FAF2F3;
 }
