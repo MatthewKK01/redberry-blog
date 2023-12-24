@@ -1,0 +1,60 @@
+figure{
+    max-width: 720px;
+    max-height: 328px;
+    img{
+        margin-bottom: 40px;
+    }
+    figcaption{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        h6{
+            color: #1A1A1F;
+            font-family: FiraGO;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px; /* 125% */
+        }
+        p{
+            color: #85858D;
+    font-family: FiraGO;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+        }
+    }
+}
+
+section{
+    padding-block:40px 98px ;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    svg{
+        top: 40px;
+        left: 76px;
+        position: absolute;
+    }
+}
+.categoryTitle{
+    border-radius: 30px;
+    padding: 8px 16px 8px 16px;
+    display: inline;
+    white-space: nowrap;
+    font-family: FiraGO;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+}
+.description{
+    margin-block: 40px;
+    color: #404049;
+font-family: FiraGO;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 28px; /* 175% */
+}

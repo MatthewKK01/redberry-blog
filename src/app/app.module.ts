@@ -12,6 +12,8 @@ import { DragDirective } from './drag.directive';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { FormsModule } from '@angular/forms';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { HeaderComponent } from './header/header.component';
+import { ArticleComponent } from './article/article.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     NewBlogComponent,
     DragDirective,
     PostDetailsComponent,
+    HeaderComponent,
+    ArticleComponent,
 
   ],
   imports: [

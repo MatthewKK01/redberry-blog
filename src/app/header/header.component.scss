@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:28px 76px;
+    background-color: white;
+    border-bottom:1px solid #E4E3EB;
+        button{
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #5D37F3;
+            color: #FFF;
+            font-family: FiraGO;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px; /* 142.857% */
+            cursor: pointer;
+            
+        }
+    }

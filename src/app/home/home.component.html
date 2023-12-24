@@ -1,17 +1,4 @@
-<header>
-  <img src="/assets/logo.svg" alt="" />
-  <button
-    class="btn"
-    *ngIf="!isLoggedIn"
-    data-bs-toggle="modal"
-    data-bs-target="#myModal"
-  >
-    შესვლა
-  </button>
-  <button class="btn" *ngIf="isLoggedIn" (click)="navigate()">
-    ბლოგის დამატება
-  </button>
-</header>
+<app-header></app-header>
 <main class="wrapper">
   <section>
     <h2>ბლოგი</h2>
@@ -32,28 +19,7 @@
     </ng-container>
   </nav>
   <article>
-    <div class="blogWrapper" *ngFor="let item of posts">
-      <img [src]="item.image" alt="" />
-      <h1>{{ item.author }}</h1>
-      <small>{{ item.publish_date }}</small>
-      <h1>{{ item.title }}</h1>
-      <div
-        style="display: flex; gap: 16px"
-        *ngFor="let category of item.categories"
-      >
-        <p
-          class="categoryTitle"
-          [ngStyle]="{
-          'background-color': category.background_color,
-          color: category.text_color,
-        }"
-        >
-          {{ category.title }}
-        </p>
-      </div>
-      <p>{{ item.description }}</p>
-      <a [routerLink]="['/posts', item.id]">სრულად ნახვა</a>
-    </div>
+    <app-article *ngFor="let item of posts" [item]="item"></app-article>
   </article>
 </main>
 

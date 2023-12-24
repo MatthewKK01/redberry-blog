@@ -21,9 +21,9 @@ export class BlogService {
     return this.http.get<any>(this.url, { headers })
   }
 
-  getBlogPostById(id: number, token: string): Observable<any> {
+  getBlogPostById(id: number,): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${this.token}`
     });
     const url = `${this.blogApi}/blogs/${id}`;
     return this.http.get(url, { headers });
