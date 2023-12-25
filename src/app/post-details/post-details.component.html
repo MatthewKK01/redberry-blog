@@ -16,17 +16,17 @@
   </svg>
   <article>
     <figure>
-      <div><img [src]="detailedPost.image" alt="" /></div>
+      <div><img [src]="detailedPost?.image" alt="" /></div>
       <figcaption>
-        <h6>{{ detailedPost.author }}</h6>
+        <h6>{{ detailedPost?.author }}</h6>
         <p>
-          {{ detailedPost.publish_date }}
+          {{ detailedPost?.publish_date }}
           &#8226;
-          <span>{{ detailedPost.email }}</span>
+          <span>{{ detailedPost?.email }}</span>
         </p>
       </figcaption>
     </figure>
-    <h1 style="margin-block: 24px">{{ detailedPost.title }}</h1>
+    <h1 style="margin-block: 24px">{{ detailedPost?.title }}</h1>
     <div style="display: flex; gap: 16px">
       <p
         class="categoryTitle"
@@ -34,13 +34,13 @@
             'background-color': item.background_color,
             color: item.text_color,
           }"
-        *ngFor="let item of detailedPost.categories"
+        *ngFor="let item of detailedPost?.categories"
       >
         {{ item.title }}
       </p>
     </div>
     <p class="description">
-      {{ detailedPost.description }}
+      {{ detailedPost?.description }}
     </p>
   </article>
 </section>

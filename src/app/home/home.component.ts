@@ -63,9 +63,22 @@ export class HomeComponent implements OnInit {
     this.cdr.detectChanges();
 
     console.log('Selected Indices:', this.selectedIndices);
+    this.updatePosts();
   }
-  private loadData() {
 
+  updatePosts(): void {
+    this.blogService.getBlogs().subscribe({
+      next: (res) => {
+        console.log(res);
+        if (this.selectedIndices.length === 0) {
+          this.posts = res.data;
+        } else {
+          this.posts = res.data.filter((article) =>
+            article.categories.some(category => this.selectedIndices.includes(category.id))
+          );
+        }
+      }
+    });
   }
 
 
@@ -76,19 +89,7 @@ export class HomeComponent implements OnInit {
     )
 
 
-    this.blogService.getBlogs().subscribe({
-      next: (res) => {
-        console.log(res);
-        if (this.selectedIndices.length === 0) {
-          this.posts = res.data
-        } else {
-          this.posts = res.data.filter((article) =>
-            article.categories.some(category => this.selectedIndices.includes(category.id))
-          );
-        }
-      }
-    })
-
+    this.updatePosts();
   }
 
 

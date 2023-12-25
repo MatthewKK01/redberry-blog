@@ -13,8 +13,8 @@
           'background-color': item.background_color,
           color: item.text_color,
         }"
-        [ngClass]="{ selected: isSelected(i) }"
-        (click)="toggleBorder(i)"
+        [ngClass]="{ selected: isSelected(item.id) }"
+        (click)="toggleBorder(item.id)"
       >
         {{ item.title }}
       </p>

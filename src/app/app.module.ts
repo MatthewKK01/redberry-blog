@@ -16,6 +16,8 @@ import { HeaderComponent } from './header/header.component';
 import { ArticleComponent } from './article/article.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,6 @@ import { ArticleComponent } from './article/article.component';
     PostDetailsComponent,
     HeaderComponent,
     ArticleComponent,
-
   ],
   imports: [
     BrowserModule,
