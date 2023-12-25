@@ -64,6 +64,10 @@ export class HomeComponent implements OnInit {
 
     console.log('Selected Indices:', this.selectedIndices);
   }
+  private loadData() {
+
+  }
+
 
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe(
@@ -75,7 +79,13 @@ export class HomeComponent implements OnInit {
     this.blogService.getBlogs().subscribe({
       next: (res) => {
         console.log(res);
-        this.posts = res.data
+        if (this.selectedIndices.length === 0) {
+          this.posts = res.data
+        } else {
+          this.posts = res.data.filter((article) =>
+            article.categories.some(category => this.selectedIndices.includes(category.id))
+          );
+        }
       }
     })
 

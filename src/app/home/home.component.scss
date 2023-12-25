@@ -27,4 +27,15 @@ article{
     margin-block: 64px 96px;
     padding-inline: 76px;
 }
-  
+.categoryTitle{
+    border-radius: 30px;
+    padding: 8px 16px 8px 16px;
+    display: inline;
+    margin: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; 
+}
