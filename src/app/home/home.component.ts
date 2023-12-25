@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { BlogService } from '../services/blog.service';
 
@@ -34,14 +34,36 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(public categoriesService: CategoryService, public blogService: BlogService, public auth: AuthService, public router: Router) { }
+  constructor(
+    public categoriesService: CategoryService,
+    public blogService: BlogService,
+    public auth: AuthService,
+    public router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   public categories: Category[] = [];
-
-
-
-
   public posts: BlogPost[];
+
+  selectedIndex: number | null = null;
+  selectedIndices: any[] = [];
+  isSelected(index: number): boolean {
+    return this.selectedIndices.includes(index);
+  }
+  toggleBorder(index: number): void {
+    const indexInArray = this.selectedIndices.indexOf(index);
+
+    if (indexInArray !== -1) {
+      // If already selected, remove it
+      this.selectedIndices.splice(indexInArray, 1);
+    } else {
+      // If not selected, add it
+      this.selectedIndices.push(index);
+    }
+    this.cdr.detectChanges();
+
+    console.log('Selected Indices:', this.selectedIndices);
+  }
 
   ngOnInit(): void {
     this.categoriesService.getCategories().subscribe(

@@ -73,5 +73,6 @@ text-decoration: none;
 .category{
     display: flex;
     column-gap: 16px;
-    overflow-x: auto;
+    row-gap: 8px;
+    flex-wrap:wrap;
 }

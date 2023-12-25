@@ -38,6 +38,10 @@ section{
         position: absolute;
     }
 }
+footer{
+    display: flex;
+    padding-inline: 76px;
+}
 .categoryTitle{
     border-radius: 30px;
     padding: 8px 16px 8px 16px;
