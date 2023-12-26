@@ -168,7 +168,10 @@
         <div class="div6">
           <label for="categories">კატეგორია*</label>
           <div
-            [class.ng-invalid]="!myForm.get('categories')?.valid"
+            [class.ng-invalid]="
+              !myForm.get('categories')?.valid &&
+              myForm.get('categories').touched
+            "
             [class.ng-valid]="myForm.get('categories')?.valid"
             class="selection"
           >
@@ -228,8 +231,10 @@
             </div>
             <div
               class="visibility"
-              [class.ng-invalid]="!myForm.get('categories')?.valid"
-              [class.ng-touched]="myForm.get('categories')?.touched"
+              [class.ng-invalid]="
+                !myForm.get('categories')?.valid &&
+                myForm.get('categories')?.touched
+              "
               [class.ng-valid]="myForm.get('categories')?.valid"
             >
               <img
@@ -268,9 +273,7 @@
           </small>
         </div>
       </div>
-      <button type="submit" [disabled]="!myForm.valid" class="submit-btn">
-        გამოქვეყნება
-      </button>
+      <button type="submit" class="submit-btn">გამოქვეყნება</button>
     </form>
   </div>
 </main>

@@ -60,6 +60,9 @@ export class HomeComponent implements OnInit {
       // If not selected, add it
       this.selectedIndices.push(index);
     }
+
+    localStorage.setItem('selectedIndices', JSON.stringify(this.selectedIndices));
+
     this.cdr.detectChanges();
 
     console.log('Selected Indices:', this.selectedIndices);
@@ -69,7 +72,14 @@ export class HomeComponent implements OnInit {
   updatePosts(): void {
     this.blogService.getBlogs().subscribe({
       next: (res) => {
-        console.log(res);
+        const currentDate = new Date();
+        console.log(currentDate);
+
+        this.posts = res.data.filter((article) => {
+          // Parse the publish date and check if it's in the past or present
+          const publishDate = new Date(article.publish_date);
+          return publishDate <= currentDate;
+        });
         if (this.selectedIndices.length === 0) {
           this.posts = res.data;
         } else {
@@ -83,6 +93,13 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    const storedIndices = localStorage.getItem('selectedIndices');
+    if (storedIndices) {
+      this.selectedIndices = JSON.parse(storedIndices);
+    }
+
+
     this.categoriesService.getCategories().subscribe(
       data => console.log('Success!', this.categories = data.data),
       error => console.error('Error:', error),

@@ -2,13 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { SafeUrl } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { BlogService } from '../services/blog.service';
 import { Router } from '@angular/router';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 
+interface FullBlog {
+  title: string,
+  description: string,
+  image: Blob,
+  publish_date: string,
+  categories: number[],
+  author: string,
+  email: string
+}
 
 interface FileHandle {
   file: File;
@@ -29,13 +37,14 @@ export class NewBlogComponent implements OnInit {
   constructor(private categoryService: CategoryService, private blogservice: BlogService, private router: Router) {
 
   }
-
+  private formSubscription: Subscription;
   categories: Categories[] = [];
-  myForm: FormGroup;
+  public myForm: FormGroup;
+  formData = new FormData();
+  blob: any = {}
 
   public Photo: FileHandle = null;
   selectedCategories: any[] = [1, 2];
-  myImage = new FormData()
   emailRegex = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
 
 
@@ -54,6 +63,7 @@ export class NewBlogComponent implements OnInit {
       this.selectedItems.push(item);
       this.myForm.get('categories').setValue([...this.myForm.get('categories').value, item])
     }
+
 
   }
   removeItem(item: any) {
@@ -80,21 +90,30 @@ export class NewBlogComponent implements OnInit {
 
   onSubmit() {
     const selectedIds = this.selectedItems.map(item => item.id);
+    const blogDataValidated = this.myForm.value;
 
-    const formData = this.myForm.value;
-    const blogData = {
-      title: formData.title,
-      description: formData.description,
-      image: this.myImage,
-      publish_date: formData.publish_date,
+    const fullBlog: FullBlog = {
+      title: blogDataValidated.title,
+      description: blogDataValidated.description,
+      image: this.blob.value,
+      publish_date: blogDataValidated.publish_date,
       categories: selectedIds,
-      author: formData.author,
-      email: formData.email,
+      author: blogDataValidated.author,
+      email: blogDataValidated.email
+    }
 
-    };
-    console.log(blogData);
 
-    this.blogservice.sendPost(blogData).subscribe(
+    this.formData.append('title', fullBlog.title);
+    this.formData.append('description', fullBlog.description);
+    this.formData.append('publish_date', fullBlog.publish_date);
+    this.formData.append('email', fullBlog.email);
+
+    this.formData.append(`categories`, JSON.stringify(selectedIds));
+    this.formData.append('author', fullBlog.author);
+    console.log(this.formData);
+
+
+    this.blogservice.sendPost(this.formData).subscribe(
       {
         next: (res) => console.log(res),
         error: (err) => console.log(err)
@@ -107,6 +126,8 @@ export class NewBlogComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
 
     this.myForm = new FormGroup({
       title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
@@ -122,6 +143,19 @@ export class NewBlogComponent implements OnInit {
       email: new FormControl(null, [Validators.email, Validators.pattern(this.emailRegex)])
     })
 
+    const savedFormData = localStorage.getItem('blogFormData');
+    if (savedFormData) {
+      const jsonData = JSON.parse(savedFormData)
+      this.myForm.setValue(jsonData);
+      this.selectedItems = Array.from(new Set(jsonData.categories));
+    }
+
+    // Subscribe to form changes to update localStorage
+    this.formSubscription = this.myForm.valueChanges.subscribe(value => {
+      localStorage.setItem('blogFormData', JSON.stringify(value));
+    });
+
+
     this.categoryService.getCategories().subscribe(
       {
         next: (res) => { this.categories = res.data, console.log(this.categories) }
@@ -131,6 +165,12 @@ export class NewBlogComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    // Unsubscribe from form changes to avoid memory leaks
+    if (this.formSubscription) {
+      this.formSubscription.unsubscribe();
+    }
+  }
 
 
 
@@ -148,17 +188,38 @@ export class NewBlogComponent implements OnInit {
     const file = fileInput.files?.[0];
 
     if (file) {
-      const url = URL.createObjectURL(file);
-      this.Photo = { file, url };
-      console.log(this.Photo);
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const base64DataWithPrefix = event.target.result;
+        console.log(base64DataWithPrefix);
 
-      this.myImage.append('image', this.Photo.file);
+        // Remove the prefix ("data:image/jpeg;base64,") from the base64 data
+        const base64Data = base64DataWithPrefix.split(',')[1];
 
+        // Convert base64 to binary
+        const binaryString = atob(base64Data);
+
+        // Create a Uint8Array from the binary string
+        const uint8Array = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          uint8Array[i] = binaryString.charCodeAt(i);
+        }
+
+        // Create a Blob from the Uint8Array
+        const blob = new Blob([uint8Array], { type: file.type });
+
+        // Now 'blob' contains the binary data of the file
+        this.myForm.get('image').setValue(blob);
+
+        this.formData.append('image', blob, 'image.jpg');
+        console.log(blob);
+        // You can use the blob as needed, for example, upload it to a server
+        // using XMLHttpRequest or fetch API
+      };
+
+      reader.readAsDataURL(file);
     }
   }
-
-
-
 
 
 }
