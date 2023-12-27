@@ -42,8 +42,12 @@ export class PostDetailsComponent implements OnInit {
     this.router.navigate(["/"])
   }
   filterSimilarArticles() {
-    // Filter the posts to get similar articles based on the postId
-    this.similarArticles = this.allPosts.filter(post => post.id == this.postId);
+    const detailedPostCategoryIds = this.detailedPost.categories.map(category => category.id);
+
+    this.similarArticles = this.allPosts.filter(post =>
+      post.id !== this.detailedPost.id && // Exclude the current post
+      post.categories.some(cat => detailedPostCategoryIds.includes(cat.id))
+    );
   }
   ngOnInit() {
     this.route.params.subscribe((params) => {
