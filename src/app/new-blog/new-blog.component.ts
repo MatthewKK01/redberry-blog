@@ -176,8 +176,10 @@ export class NewBlogComponent implements OnInit {
 
 
   fileDropped(fileHandle: FileHandle) {
-    this.Photo = fileHandle;
-    console.log(this.Photo);
+    const blob = new Blob([fileHandle.file], { type: fileHandle.file.type });
+    this.blob = blob;
+    this.formData.append('image', blob, fileHandle.file.name);
+    this.Photo = fileHandle
   }
   dismiss() {
     this.Photo = null;

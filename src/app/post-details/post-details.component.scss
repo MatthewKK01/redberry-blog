@@ -39,6 +39,9 @@ figure{
 .similar-articles{
     display: flex;
     gap: 32px;
+    flex-wrap: wrap;
+    width: 1288px;
+    margin: 0 auto;
 }
 
 section{
@@ -48,13 +51,9 @@ section{
     position: relative;
     svg{
         top: 40px;
-        left: 76px;
+        left: 0;
         position: absolute;
     }
-}
-footer{
-    display: flex;
-    padding-inline: 76px;
 }
 .categoryTitle{
     border-radius: 30px;

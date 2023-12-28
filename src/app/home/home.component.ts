@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { BlogService } from '../services/blog.service';
 
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface BlogPost {
   id: number;
@@ -30,7 +31,7 @@ interface Category {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
 
 
@@ -39,9 +40,9 @@ export class HomeComponent implements OnInit {
     public blogService: BlogService,
     public auth: AuthService,
     public router: Router,
-    private cdr: ChangeDetectorRef
-  ) { }
 
+  ) { }
+  private dataSubscription: Subscription;
   public categories: Category[] = [];
   public posts: BlogPost[];
 
@@ -62,8 +63,6 @@ export class HomeComponent implements OnInit {
     }
 
     localStorage.setItem('selectedIndices', JSON.stringify(this.selectedIndices));
-
-    this.cdr.detectChanges();
 
     console.log('Selected Indices:', this.selectedIndices);
     this.updatePosts();
@@ -109,6 +108,12 @@ export class HomeComponent implements OnInit {
     this.updatePosts();
   }
 
+  ngOnDestroy(): void {
+    // Unsubscribe from the data subscription to prevent memory leaks
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
 
 
 

@@ -273,7 +273,9 @@
           </small>
         </div>
       </div>
-      <button type="submit" class="submit-btn">გამოქვეყნება</button>
+      <button [disabled]="!myForm.valid" type="submit" class="submit-btn">
+        გამოქვეყნება
+      </button>
     </form>
   </div>
 </main>
