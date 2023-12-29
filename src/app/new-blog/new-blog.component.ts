@@ -123,7 +123,7 @@ export class NewBlogComponent implements OnInit {
         const blob = new Blob([uint8Array], { type: file.type });
 
         // Now 'blob' contains the binary data of the file
-        this.myForm.get('image').setValue(blob);
+
 
         this.formData.append('image', blob, 'image.jpg');
         console.log(blob);
