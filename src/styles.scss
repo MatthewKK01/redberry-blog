@@ -33,3 +33,14 @@ padding-left: 16px;
     margin-top: 64px;
 
 }
+.carousel-inner{
+    display: flex;
+    overflow: hidden;
+}
+.carousel-item {
+	position: relative;
+	display: none;
+	 width: calc(100%/3); 
+	  margin-right: 32px; 
+	
+}

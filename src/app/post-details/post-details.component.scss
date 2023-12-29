@@ -43,6 +43,15 @@ figure{
     width: 1288px;
     margin: 0 auto;
 }
+.prevButton{
+    transform: rotateY(180deg);
+}
+.swiper{
+    margin-bottom: 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 section{
     padding-block:40px 98px ;
@@ -74,4 +83,7 @@ font-size: 16px;
 font-style: normal;
 font-weight: 400;
 line-height: 28px; /* 175% */
+}
+footer{
+    margin-bottom: 475px;
 }
