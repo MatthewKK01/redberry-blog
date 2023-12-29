@@ -23,6 +23,6 @@ export class AuthService {
     });
     return this.http.post(this.url, { email }, { headers, observe: "response" })
   }
-
+  
 
 }
