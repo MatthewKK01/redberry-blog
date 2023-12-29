@@ -119,9 +119,7 @@ export class NewBlogComponent implements OnInit {
         error: (err) => console.log(err)
       }
     )
-    localStorage.clear()
   }
-
 
   goBack() {
     this.router.navigate(['/']);
@@ -190,16 +188,12 @@ export class NewBlogComponent implements OnInit {
   fileSelected(event: any) {
     const fileInput = event.target as HTMLInputElement;
     const file = fileInput.files?.[0];
-    this.Photo = {
-      file: file,
-      url: file.name
-    }
 
     if (file) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
         const base64DataWithPrefix = event.target.result;
-
+        console.log(base64DataWithPrefix);
 
         // Remove the prefix ("data:image/jpeg;base64,") from the base64 data
         const base64Data = base64DataWithPrefix.split(',')[1];
@@ -226,6 +220,10 @@ export class NewBlogComponent implements OnInit {
       };
 
       reader.readAsDataURL(file);
+      this.Photo = {
+        file: file,
+        url: file.type
+      }
     }
   }
 

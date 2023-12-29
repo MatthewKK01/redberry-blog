@@ -12,7 +12,7 @@ export class AuthService {
   private responseStatusSubject = new BehaviorSubject<number>(null);
   responseStatus$ = this.responseStatusSubject.asObservable();
 
-  private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
+  private token: string = '2c47650fc13dd3b28eb40b6d111e7f5d9f5b1a880482fd9b1f6818029cb54c6a';
   setResponseStatus(status: number) {
     this.responseStatusSubject.next(status);
   }
@@ -23,6 +23,6 @@ export class AuthService {
     });
     return this.http.post(this.url, { email }, { headers, observe: "response" })
   }
-  
+
 
 }

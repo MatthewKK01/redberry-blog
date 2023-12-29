@@ -8,7 +8,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
   private categoryUrl = "https://api.blog.redberryinternship.ge/api/categories"
-  private token: string = '5621ba17c1af43af2975b04076c244d8630fafd4b7f6ec75d5f9f2edeb42a0db';
+  private token: string = '2c47650fc13dd3b28eb40b6d111e7f5d9f5b1a880482fd9b1f6818029cb54c6a';
 
   getCategories() {
 
