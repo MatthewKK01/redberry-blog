@@ -230,7 +230,7 @@ display: inline;
 .visibility{
     background-color: white;
     padding: 10px;
-    z-index: 99999;
+    z-index: 10;
     position: sticky;
     right: 0;
 }
@@ -239,4 +239,9 @@ background: #F8FFF8;
 }
 .visibility.ng-invalid{
 background: #FAF2F3;
+}
+.xButton{
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
