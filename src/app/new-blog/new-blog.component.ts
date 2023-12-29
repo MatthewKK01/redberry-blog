@@ -121,6 +121,7 @@ export class NewBlogComponent implements OnInit {
     )
   }
 
+
   goBack() {
     this.router.navigate(['/']);
   }

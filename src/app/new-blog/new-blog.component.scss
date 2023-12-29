@@ -247,6 +247,23 @@ font-weight: 400;
     }
 }
 
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    svg{
+        margin: 0;
+    }
+    h1{
+        color: #1A1A1F;
+text-align: center;
+font-family: FiraGO;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: 28px; /* 140% */
+    }
+}
 
 .error-list {
     color: #EA1919;
