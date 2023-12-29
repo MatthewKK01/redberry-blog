@@ -82,11 +82,63 @@ export class NewBlogComponent implements OnInit {
       return words.length >= 2 ? null : { atLeastTwoWords: true };
     };
   }
-
-
   changeVisibility() {
     this.listVisible = !this.listVisible
   }
+
+
+  fileDropped(fileHandle: FileHandle) {
+    const blob = new Blob([fileHandle.file], { type: fileHandle.file.type });
+    this.blob = blob;
+    this.formData.append('image', blob, fileHandle.file.name);
+    this.Photo = fileHandle
+  }
+  dismiss() {
+    this.Photo = null;
+    console.log(this.Photo);
+  }
+  fileSelected(event: any) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const base64DataWithPrefix = event.target.result;
+        console.log(base64DataWithPrefix);
+
+        // Remove the prefix ("data:image/jpeg;base64,") from the base64 data
+        const base64Data = base64DataWithPrefix.split(',')[1];
+
+        // Convert base64 to binary
+        const binaryString = atob(base64Data);
+
+        // Create a Uint8Array from the binary string
+        const uint8Array = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          uint8Array[i] = binaryString.charCodeAt(i);
+        }
+
+        // Create a Blob from the Uint8Array
+        const blob = new Blob([uint8Array], { type: file.type });
+
+        // Now 'blob' contains the binary data of the file
+        this.myForm.get('image').setValue(blob);
+
+        this.formData.append('image', blob, 'image.jpg');
+        console.log(blob);
+        // You can use the blob as needed, for example, upload it to a server
+        // using XMLHttpRequest or fetch API
+      };
+
+      reader.readAsDataURL(file);
+      this.Photo = {
+        file: file,
+        url: file.type
+      }
+    }
+  }
+
 
   onSubmit() {
     const selectedIds = this.selectedItems.map(item => item.id);
@@ -99,7 +151,7 @@ export class NewBlogComponent implements OnInit {
       publish_date: blogDataValidated.publish_date,
       categories: selectedIds,
       author: blogDataValidated.author,
-      email: blogDataValidated.email
+      email: blogDataValidated.email || ""
     }
 
 
@@ -107,7 +159,6 @@ export class NewBlogComponent implements OnInit {
     this.formData.append('description', fullBlog.description);
     this.formData.append('publish_date', fullBlog.publish_date);
     this.formData.append('email', fullBlog.email);
-
     this.formData.append(`categories`, JSON.stringify(selectedIds));
     this.formData.append('author', fullBlog.author);
     console.log(this.formData);
@@ -174,58 +225,6 @@ export class NewBlogComponent implements OnInit {
 
 
 
-
-  fileDropped(fileHandle: FileHandle) {
-    const blob = new Blob([fileHandle.file], { type: fileHandle.file.type });
-    this.blob = blob;
-    this.formData.append('image', blob, fileHandle.file.name);
-    this.Photo = fileHandle
-  }
-  dismiss() {
-    this.Photo = null;
-    console.log(this.Photo);
-  }
-  fileSelected(event: any) {
-    const fileInput = event.target as HTMLInputElement;
-    const file = fileInput.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        const base64DataWithPrefix = event.target.result;
-        console.log(base64DataWithPrefix);
-
-        // Remove the prefix ("data:image/jpeg;base64,") from the base64 data
-        const base64Data = base64DataWithPrefix.split(',')[1];
-
-        // Convert base64 to binary
-        const binaryString = atob(base64Data);
-
-        // Create a Uint8Array from the binary string
-        const uint8Array = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-          uint8Array[i] = binaryString.charCodeAt(i);
-        }
-
-        // Create a Blob from the Uint8Array
-        const blob = new Blob([uint8Array], { type: file.type });
-
-        // Now 'blob' contains the binary data of the file
-        this.myForm.get('image').setValue(blob);
-
-        this.formData.append('image', blob, 'image.jpg');
-        console.log(blob);
-        // You can use the blob as needed, for example, upload it to a server
-        // using XMLHttpRequest or fetch API
-      };
-
-      reader.readAsDataURL(file);
-      this.Photo = {
-        file: file,
-        url: file.type
-      }
-    }
-  }
 
 
 }
