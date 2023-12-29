@@ -12,7 +12,7 @@ export class BlogService {
   private url: string = "https://api.blog.redberryinternship.ge/api/blogs";
   blogApi: string = "https://api.blog.redberryinternship.ge/api"
   postUrl: string = "https://api.blog.redberryinternship.ge/api/blogs"
-  private token: string = '2c47650fc13dd3b28eb40b6d111e7f5d9f5b1a880482fd9b1f6818029cb54c6a';
+  private token: string = 'fc88a355ca72a4f71fcddd31dfe94cc7ef0bb851ba8cbc80a93340ae1a91f273';
 
   getBlogs() {
     const headers = new HttpHeaders({
